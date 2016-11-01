@@ -6,6 +6,14 @@
 #define SYMB 1 // symbols
 #define MDIA 2 // media keys
 
+#if KEYLOGGER_ENABLE
+# ifdef AUTOLOG_ENABLE
+bool log_enable = true;
+# else
+bool log_enable = false;
+# endif
+#endif
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
@@ -24,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        | Home  | End  |       | PgUp  |Insert |
  *                                 ,------|-------|------|       |-------+-------+------.
  *                                 |      |       | LGui |       | Del   |       |      |
- *                                 | Space|  Alt  |------|       |-------| Enter |Space |
+ *                                 | Alt  | LGui  |------|       |-------| Enter |Space |
  *                                 |      |       | LGui |       | Bcsp  |       |      |
  *                                 `---------------------'       `----------------------'
  */
@@ -40,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                                KC_HOME,   KC_END,
                                                           KC_LGUI,
-                                      KC_SPC,  KC_LALT,   KC_LGUI,
+                                      KC_LALT, KC_LGUI,   KC_LGUI,
 
   // right hand
   KC_ESC,  KC_6,     KC_7,     KC_8,     KC_9,     KC_0,      KC_BSPC,
@@ -197,11 +205,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     if (layer == BASE) {
       uprintf(
-          "KL: col=%02d, row=%02d, pressed=%d, layer=%s\n",
-          record->event.key.col,
-          record->event.key.row,
-          "QWERTY"
-          )
+        "KL: col=%02d, row=%02d, pressed=%d, layer=%s\n",
+        record->event.key.col,
+        record->event.key.row,
+        "QWERTY"
+      );
     }
   }
 #endif
