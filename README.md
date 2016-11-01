@@ -8,6 +8,8 @@
   - [Base Layer](#base-layer)
   - [Coder Layer](#coder-layer)
   - [Media Layer](#media-layer)
+* [Tool](#tools)
+  - [Keylogger](#keylogger)
 * [Building](#building)
 * [Author](#author)
 
@@ -18,6 +20,11 @@ I wanted a layout that suited my Linux & Vim usage. I also didn't like the lack 
 ## Key features / changes
 
 ### Base Layer
+
+[Open on keyboard-layout-editor.com](http://www.keyboard-layout-editor.com/#/gists/afa546a6b0b9c0ec78147afc6ef9250c)
+
+![Base layer](layers/base-layer.png)
+
 
 * **No `MT(mod, kc)` keys (modifier when pressed, key when tapped).** Those keys work with a global timeout. When a key press is shorter than the timeout, it's considered a tap, otherwise it's a hold. I couldn't find any particular timeout that would work for me. I need to use mods extremely fast, but also want the confort of using them more slowly in other occasions. So I gave up on this feature altogether.
 * **Direct access to `{}[]`.** When programming, these are used extremely often. I was still getting used to the coder layer, and I prefer the arrows on the home row, so I used the bottom-right keys for this.
@@ -34,6 +41,20 @@ I wanted a layout that suited my Linux & Vim usage. I also didn't like the lack 
 * **Better media keys**. Why was Play/Pause so far away? And where was Mute? I put all my media keys close to each other, including the missing ones
 * **Arrow keys on home row.** I use vim, so I'm always on my home row. I use this sometimes to get around, but not as often as to need them on the base row. I'm fine with them here
 * I don't use mouse keys. They're still set up, and I made some changes as an experiment, but I mostly forgot they exist by now.
+
+## Tools
+
+### Keylogger
+
+For every key press, the keyboard will output a line containing the position of
+the key in the matrix.
+This allows one to collect usage information, and to build analytics over it,
+such as a heat map.
+
+Keyboard output can be caught using `hid_listen`.
+
+This functionality is enabled by default (via `KEYLOGGER_ENABLE` and
+`AUTOLOG_ENABLE` in `Makefile`).
 
 ## Building
 

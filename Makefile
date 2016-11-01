@@ -1,6 +1,18 @@
 KEYLOGGER_ENABLE = yes
 AUTOLOG_ENABLE ?= yes
 
+ifeq (${AUTOLOG_ENABLE},yes)
+KEYLOGGER_ENABLE = yes
+OPT_DEFS += -DAUTOLOG_ENABLE
+endif
+
+ifeq (${KEYLOGGER_ENABLE},yes)
+OPT_DEFS += -DKEYLOGGER_ENABLE
+CONSOLE_ENABLE = yes
+endif
+
+OPT_DEFS += -DUSER_PRINT
+
 ifndef QUANTUM_DIR
   include ../../../../Makefile
 endif
