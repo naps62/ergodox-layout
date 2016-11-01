@@ -19,6 +19,10 @@ I wanted a layout that suited my Linux & Vim usage. I also didn't like the lack 
 
 ## Key features / changes
 
+N/A
+
+## Layers
+
 ### Base Layer
 
 [Open on keyboard-layout-editor.com](http://www.keyboard-layout-editor.com/#/gists/afa546a6b0b9c0ec78147afc6ef9250c)
