@@ -25,9 +25,9 @@ N/A
 
 ### Base Layer
 
-[Open on keyboard-layout-editor.com](http://www.keyboard-layout-editor.com/#/gists/afa546a6b0b9c0ec78147afc6ef9250c)
+[Open on keyboard-layout-editor.com](http://www.keyboard-layout-editor.com/#/gists/f9769c844e700f4d92239dba79f5723a)
 
-![Base layer](layers/base-layer.png)
+![Base layer](layers/base.png)
 
 
 * **No `MT(mod, kc)` keys (modifier when pressed, key when tapped).** Those keys work with a global timeout. When a key press is shorter than the timeout, it's considered a tap, otherwise it's a hold. I couldn't find any particular timeout that would work for me. I need to use mods extremely fast, but also want the confort of using them more slowly in other occasions. So I gave up on this feature altogether.
@@ -38,9 +38,17 @@ N/A
 
 ### Coder Layer
 
+[Open on keyboard-layout-editor.com](http://www.keyboard-layout-editor.com/#/gists/afa546a6b0b9c0ec78147afc6ef9250c)
+
+![Coder layer](layers/coder.png)
+
 * The `=` and `-` signs where nowhere to be found. `-` was already on the base layer, but it's still useful to have a fully-featured NumPad on the coder layer.
 
 ### Media Layer
+
+[Open on keyboard-layout-editor.com](http://www.keyboard-layout-editor.com/#/gists/801ba0ae4d340d73df70588329e995ed)
+
+![Media layer](layers/media.png)
 
 * **Better media keys**. Why was Play/Pause so far away? And where was Mute? I put all my media keys close to each other, including the missing ones
 * **Arrow keys on home row.** I use vim, so I'm always on my home row. I use this sometimes to get around, but not as often as to need them on the base row. I'm fine with them here
