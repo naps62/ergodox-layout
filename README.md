@@ -2,8 +2,8 @@
 
 ## Table of Contents
 
-* [motivation](#motivation)
-* [Key features](#key-features)
+* [Motivation](#motivation)
+* [Key Features](#key-features)
 * [Layers](#layers)
   - [Base Layer](#base-layer)
   - [Coder Layer](#coder-layer)
@@ -58,7 +58,7 @@ N/A
 
 ### Keylogger
 
-For every key press, the keyboard will output a line containing the position of
+For every key press, the keyboard will output a JSON-formatted line containing the position of
 the key in the matrix.
 This allows one to collect usage information, and to build analytics over it,
 such as a heat map.
