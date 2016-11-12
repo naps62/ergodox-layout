@@ -7,6 +7,8 @@
 #define SYMB 1 // symbols
 #define MDIA 2 // media keys
 
+#define LANG_SWITCH LALT(KC_LSFT)
+
 #if KEYLOGGER_ENABLE
 # ifdef AUTOLOG_ENABLE
 bool log_enable = true;
@@ -41,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
 [BASE] = KEYMAP(  // layer 0 : default
   // left hand
-  KC_ESC,     KC_1,    KC_2,     KC_3,     KC_4,   KC_5,  LGUI(KC_SPC),
+  KC_ESC,     KC_1,    KC_2,     KC_3,     KC_4,   KC_5,  LANG_SWITCH,
   KC_TAB,     KC_Q,    KC_W,     KC_E,     KC_R,   KC_T,  MO(2),
   KC_LCTL,    KC_A,    KC_S,     KC_D,     KC_F,   KC_G,
   KC_LSFT,    KC_Z,    KC_X,     KC_C,     KC_V,   KC_B,  MO(1),
@@ -49,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                                KC_HOME,   KC_END,
                                                           KC_LGUI,
-                                      KC_LALT, KC_LGUI,   KC_LGUI,
+                                      KC_LALT, KC_LGUI,   LANG_SWITCH,
 
   // right hand
   KC_ESC,  KC_6,     KC_7,     KC_8,     KC_9,     KC_0,      KC_BSPC,
@@ -206,7 +208,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     if (layer == BASE) {
       uprintf(
-        "{ \"keylog\": true, \"col\": %02d, \"row\": %02d, \"pressed\": %d, \"layer\": \"%s\" }\n",
+        "{ \"keylog\": true, \"col\": %d, \"row\": %d, \"pressed\": %d, \"layer\": \"%s\" }\n",
         record->event.key.row,
         record->event.key.col,
         record->event.pressed,
