@@ -73,7 +73,7 @@ This functionality is enabled by default (via `KEYLOGGER_ENABLE` and
 If you are reading this directly through [QMK firmware](https://github.com/jackhumbert/qmk_firmware)'s repository, you can build this layout with the standard method:
 
 ```bash
-$ make keyboard=ergodox keymap=naps62
+$ make keyboard=ergodox_ez keymap=naps62
 ```
 
 If you're reading this from [my own
@@ -83,9 +83,8 @@ checkout this code into QMK's repository. Here's an example:
 ```bash
 $ git clone https://github.com/jackhumbert/qmk_firmware.git
 $ cd qmk_firmware
-$ git clone https://github.com/naps62/ergodox-layout.git
-keyboards/ergodox/keymaps/naps62
-$ make keyboard=ergodox keymap=naps62
+$ git clone https://github.com/naps62/ergodox-layout.git keyboards/ergodox_ez/keymaps/naps62
+$ make keyboard=ergodox_ez keymap=naps62
 ```
 
 ## Author
