@@ -177,7 +177,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // MEDIA AND MOUSE
 [GAME] = LAYOUT_ergodox(
-         RESET, KC_TRNS,        KC_TRNS,     KC_TRNS,        KC_TRNS, KC_TRNS,    KC_TRNS,
+       KC_TRNS, KC_TRNS,        KC_TRNS,     KC_TRNS,        KC_TRNS, KC_TRNS,    KC_TRNS,
        KC_TRNS, KC_TRNS,        KC_TRNS,     KC_TRNS,        KC_TRNS, KC_TRNS,    KC_TRNS,
        KC_TRNS, KC_TRNS,        KC_TRNS,     KC_TRNS,        KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS,        KC_TRNS,     KC_TRNS,        KC_TRNS, KC_TRNS,    KC_TRNS,
@@ -247,7 +247,33 @@ void matrix_scan_user(void) {
 
 };
 
+static struct {
+  uint16_t keycode;
+  uint16_t pressed_at;
+} last_key_press;
+
+bool is_key_twitching(uint16_t keycode, keyevent_t *event) {
+  uint16_t elapsed_time;
+
+   if (!event->pressed) return false;
+  if (keycode != last_key_press.keycode) return false;
+
+   elapsed_time = timer_elapsed(last_key_press.pressed_at);
+
+   return elapsed_time <= NAPS62_DEBOUNCE;
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  keyevent_t *event = &(record->event);
+
+  if (is_key_twitching(keycode, event))
+    return false;
+
+  if (!event->pressed) {
+    last_key_press.keycode = keycode;
+    last_key_press.pressed_at = timer_read();
+  }
+
 #if KEYLOGGER_ENABLE
   if (log_enable) {
     uint8_t layer = biton32(layer_state);

@@ -3,4 +3,6 @@
 
 #include QMK_KEYBOARD_CONFIG_H
 
+#define NAPS62_DEBOUNCE 50
+
 #endif
