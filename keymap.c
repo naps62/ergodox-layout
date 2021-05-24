@@ -1,22 +1,23 @@
-#include <stdarg.h>
-#include "ergodox_ez.h"
-#include "debug.h"
-#include "action_layer.h"
+#include QMK_KEYBOARD_H
+#include "version.h"
 
-#define BASE 0 // default layer
-#define SYMB 1 // symbols
-#define MDIA 2 // media keys
-#define GAME 3 // gaming layer
+enum layers {
+    BASE, // default layer
+    SYMB, // symbols
+    MDIA,  // media keys
+    GAME, // gaming layer
+};
+
+enum custom_keycodes {
+#ifdef ORYX_CONFIGURATOR
+  VRSN = EZ_SAFE_RANGE,
+#else
+  VRSN = SAFE_RANGE,
+#endif
+  RGB_SLD
+};
 
 #define LANG_SWITCH LALT(KC_LSFT)
-
-#if KEYLOGGER_ENABLE
-# ifdef AUTOLOG_ENABLE
-bool log_enable = true;
-# else
-bool log_enable = false;
-# endif
-#endif
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
@@ -35,13 +36,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        ,--------------.       ,---------------.
  *                                        | Home  | End  |       | PgUp  |Insert |
  *                                 ,------|-------|------|       |-------+-------+------.
- *                                 |      |       | LGui |       | Del   |       |      |
+ *                                 |      |       |RCtrl |       | Del   |       |      |
  *                                 | Alt  | LGui  |------|       |-------| Enter |Space |
  *                                 |      |       | LGui |       | Bcsp  |       |      |
  *                                 `---------------------'       `----------------------'
  */
-// If it accepts an argument (i.e, is a function), it doesn't need KC_.
-// Otherwise, it needs KC_*
 [BASE] = LAYOUT_ergodox(  // layer 0 : default
   // left hand
   KC_ESC,     KC_1,    KC_2,     KC_3,     KC_4,   KC_5,  LANG_SWITCH,
@@ -51,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   MO(1),      KC_GRV,  KC_QUOT,  KC_BSLS,  MO(2),
 
                                                KC_HOME,   KC_END,
-                                                          KC_PGUP,
+                                                          KC_RCTRL,
                                       KC_LALT, KC_LGUI,   KC_PGDN,
 
   // right hand
@@ -86,7 +85,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
-// SYMBOLS
 [SYMB] = LAYOUT_ergodox(
        // left hand
        KC_TRNS,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_TRNS,
@@ -109,7 +107,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS
 ),
-
 /* Keymap 2: Media and mouse keys
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
@@ -153,7 +150,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,
        KC_TRNS,  KC_WBAK, KC_WFWD
 ),
-
 /* Keymap 3: Gaming Layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
@@ -198,96 +194,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,  KC_WBAK, KC_WFWD
 )
 };
-
-const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_LAYER_TAP_TOGGLE(SYMB)                // FN1 - Momentary Layer 1 (Symbols)
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-      switch(id) {
-        case 0:
-        if (record->event.pressed) {
-          register_code(KC_RSFT);
-        } else {
-          unregister_code(KC_RSFT);
-        }
-        break;
-      }
-    return MACRO_NONE;
-};
-
-// Runs just one time when the keyboard initializes.
-void matrix_init_user(void) {
-
-};
-
-// Runs constantly in the background, in a loop.
-void matrix_scan_user(void) {
-
-    uint8_t layer = biton32(layer_state);
-
-    ergodox_board_led_off();
-    ergodox_right_led_1_off();
-    ergodox_right_led_2_off();
-    ergodox_right_led_3_off();
-    switch (layer) {
-      // TODO: Make this relevant to the ErgoDox EZ.
-        case 1:
-            ergodox_right_led_1_on();
-            break;
-        case 2:
-            ergodox_right_led_2_on();
-            break;
-        default:
-            // none
-            break;
-    }
-
-};
-
-static struct {
-  uint16_t keycode;
-  uint16_t pressed_at;
-} last_key_press;
-
-bool is_key_twitching(uint16_t keycode, keyevent_t *event) {
-  uint16_t elapsed_time;
-
-   if (!event->pressed) return false;
-  if (keycode != last_key_press.keycode) return false;
-
-   elapsed_time = timer_elapsed(last_key_press.pressed_at);
-
-   return elapsed_time <= NAPS62_DEBOUNCE;
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  keyevent_t *event = &(record->event);
-
-  if (is_key_twitching(keycode, event))
-    return false;
-
-  if (!event->pressed) {
-    last_key_press.keycode = keycode;
-    last_key_press.pressed_at = timer_read();
-  }
-
-#if KEYLOGGER_ENABLE
-  if (log_enable) {
-    uint8_t layer = biton32(layer_state);
-
-    if (layer == BASE) {
-      uprintf(
-        "{ \"keylog\": true, \"col\": %d, \"row\": %d, \"pressed\": %d, \"layer\": \"%s\" }\n",
-        record->event.key.row,
-        record->event.key.col,
-        record->event.pressed,
-        "QWERTY"
-      );
-    }
-  }
-#endif
-  return true;
-}
