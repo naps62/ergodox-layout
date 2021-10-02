@@ -23,12 +23,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |  Esc   | 1  ! | 2  @ | 3  # | 4  $ | 5  % | Lang |           | Esc  | 6  ^ | 7  & | 8  * | 9  ( | 0  ) | Bckspc |
+ * |  Esc   | 1  ! | 2  @ | 3  # | 4  $ | 5  % |  F1  |           | Lang | 6  ^ | 7  & | 8  * | 9  ( | 0  ) | Bckspc |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |  Tab   |   Q  |   W  |   E  |   R  |   T  |  L2  |           |  L2  |   Y  |   U  |   I  |   O  |   P  | \   |  |
+ * |  Tab   |   Q  |   W  |   E  |   R  |   T  |  F2  |           |  L2  |   Y  |   U  |   I  |   O  |   P  | \   |  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |  Ctrl  |   A  |   S  |  D   |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  | ;  : |  ' "   |
- * |--------+------+------+------+------+------|  L1  |           |  L1  |------+------+------+------+------+--------|
+ * |--------+------+------+------+------+------|  F3  |           |  L1  |------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  | ,  < | . >  | /  ? |  - _   |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |  L1  | `  ~ | ' "  |  F1  |  L2  |                                       |  {   |  }   | [  { | ]  } |  L1  |
@@ -44,9 +44,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = LAYOUT_ergodox(  // layer 0 : default
   // left hand
   KC_ESC,     KC_1,    KC_2,     KC_3,     KC_4,   KC_5,  LANG_SWITCH,
-  KC_TAB,     KC_Q,    KC_W,     KC_E,     KC_R,   KC_T,  MO(2),
+  KC_TAB,     KC_Q,    KC_W,     KC_E,     KC_R,   KC_T,  KC_F2,
   KC_LCTL,    KC_A,    KC_S,     KC_D,     KC_F,   KC_G,
-  KC_LSFT,    KC_Z,    KC_X,     KC_C,     KC_V,   KC_B,  MO(1),
+  KC_LSFT,    KC_Z,    KC_X,     KC_C,     KC_V,   KC_B,  KC_F3,
   MO(1),      KC_GRV,  KC_QUOT,  KC_F1,  MO(2),
 
                                                KC_HOME,   KC_END,
@@ -54,11 +54,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       KC_LALT, KC_LGUI,   KC_PGDN,
 
   // right hand
-  TG(GAME),  KC_6,     KC_7,     KC_8,     KC_9,     KC_0,      KC_BSPC,
-  MO(2),   KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,      KC_BSLS,
-           KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,   KC_QUOT,
-  MO(1),   KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,   KC_MINS,
-                     KC_LCBR,  KC_RCBR,  KC_LBRC,  KC_RBRC,   MO(1),
+LANG_SWITCH,   KC_6,     KC_7,     KC_8,     KC_9,     KC_0,      KC_BSPC,
+      MO(2),   KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,      KC_BSLS,
+               KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,   KC_QUOT,
+      MO(1),   KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,   KC_MINS,
+                         KC_LCBR,  KC_RCBR,  KC_LBRC,  KC_RBRC,   MO(1),
 
   KC_PGUP,  KC_INS,
   KC_DEL,
