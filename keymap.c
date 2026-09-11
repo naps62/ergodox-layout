@@ -29,10 +29,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |  Tab   |   Q  |   W  |   E  |   R  |   T  |  F2  |           |  L2  |   Y  |   U  |   I  |   O  |   P  | \   |  |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |  Ctrl  |   A  |   S  |  D   |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  | ;  : |  ' "   |
- * |--------+------+------+------+------+------|  F3  |           |  L1  |------+------+------+------+------+--------|
+ * |--------+------+------+------+------+------| F13  |           |  L1  |------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  | ,  < | . >  | /  ? |  - _   |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |  L1  | `  ~ | ' "  |  F1  |  L2  |                                       |  {   |  }   | [  { | ]  } |  L1  |
+ *   |  L1  | `  ~ | ' "  |  F13 |  L2  |                                       |  {   |  }   | [  { | ]  } |  L1  |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,--------------.       ,---------------.
  *                                        | Home  | End  |       | PgUp  |Insert |
@@ -45,10 +45,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [BASE] = LAYOUT_ergodox(  // layer 0 : default
   // left hand
   KC_ESC,     KC_1,    KC_2,     KC_3,     KC_4,   KC_5,  LANG_SWITCH,
-  KC_TAB,     KC_Q,    KC_W,     KC_E,     KC_R,   KC_T,  LAG(KC_U),
+  KC_TAB,     KC_Q,    KC_W,     KC_E,     KC_R,   KC_T,  KC_F13,
   KC_LCTL,    KC_A,    KC_S,     KC_D,     KC_F,   KC_G,
   KC_LSFT,    KC_Z,    KC_X,     KC_C,     KC_V,   KC_B,  CTRL_BACKTICK,
-  MO(1),      KC_GRV,  KC_QUOT,  KC_F1,  MO(2),
+  MO(1),      KC_GRV,  KC_QUOT,  KC_F13,  MO(2),
 
                                                KC_HOME,   KC_END,
                                                           KC_RCTRL,
